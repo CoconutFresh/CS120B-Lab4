@@ -1,35 +1,65 @@
-/*
- * gbers002_bzhan014_lab4_part1.c
- *
- * Created: 1/17/2019 3:00:03 PM
- * Author : Glenn
- */ 
+/*	Glenn Bersabe Email: Gbers002@ucr.edu
+ *  Bohan Zhang Email: Bzhan014@ucr.edu
+ *	Lab Section: 023
+ *	Assignment: Lab 4  Exercise 1
+ *	Exercise Description: Simulates a button where pressing it transitions the state.
+ *	
+ *	I acknowledge all content contained herein, excluding template or example
+ *	code, is my own original work.
+ */
 
 #include <avr/io.h>
-enum States {start, OFF, ON} state;
-	unsigned char button = 0x00;
+
+#include <avr/io.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+enum States {start, B_1, B_2} state;
+	unsigned char hold = 0x00;
 
 	void tick() {
-		switch(state) {
+		switch(state) { //transition
 			case start: 
-			state = OFF;
-			break;
-			case OFF:
-				if (PINA == 0x00) { state = OFF;}
-				else if (PINA == 0x01) { state = ON;}
+				state = B_1;
 				break;
-			case ON:
-				if (PINA == 0x00) {state = ON;}
-				else if (PINA == 0x01) {state = OFF;}
+			case B_1:
+				if (PINA == 0x01 && hold == 0x00) { //Hold state where A0 is still 1
+					state = B_1;
+				}
+				else if (PINA == 0x00) { //State where button is released
+					state = B_1;
+					hold = 0x01;
+				}
+				else if (PINA == 0x01 && hold == 0x01) { //Transition state
+					state = B_2;
+					hold = 0x00;
+				}
+				break;
+			case B_2:
+				if (PINA == 0x01 && hold == 0x00) { //Hold state where A0 is still 1
+					state = B_2;
+				}
+				else if (PINA == 0x00) { //State where button is released
+					state = B_2;
+					hold = 0x01;
+				}
+				else if (PINA == 0x01 && hold == 0x01) { //Transition state
+					state = B_1;
+					hold = 0x00;
+				}
 					break;
+			default: 
+				printf("Error");
+				exit(1);
+				
 		}
-		switch(state) {
-			case OFF: 
-			PORTB = 0x01;
-			break;
-			case ON:
-			PORTB = 0x02;
-			break;
+		switch(state) { //states
+			case B_1: 
+				PORTB = 0x01;
+				break;
+			case B_2:
+				PORTB = 0x02;
+				break;
 		}
 	}
 
