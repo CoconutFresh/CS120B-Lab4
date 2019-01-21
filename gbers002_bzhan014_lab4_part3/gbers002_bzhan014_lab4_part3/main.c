@@ -1,9 +1,12 @@
-/*
- * gbers002_bzhan014_lab4_part3.c
- *
- * Created: 1/20/2019 9:01:37 PM
- * Author : Glenn
- */ 
+/*	Glenn Bersabe Email: Gbers002@ucr.edu
+ *  Bohan Zhang Email: Bzhan014@ucr.edu
+ *	Lab Section: 023
+ *	Assignment: Lab 4  Exercise 3
+ *	Exercise Description: Simulates a button where pressing it transitions the state.
+ *	
+ *	I acknowledge all content contained herein, excluding template or example
+ *	code, is my own original work.
+ */
 
 #include <avr/io.h>
 enum States{start, input, pound, r_pound, unlock, lock} state;
