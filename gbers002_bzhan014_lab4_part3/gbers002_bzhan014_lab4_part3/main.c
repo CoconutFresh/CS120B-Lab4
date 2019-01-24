@@ -17,7 +17,7 @@ void tick() {
 			state = input;
 			break;
 		case input:
-			if(PINA == 0x02) {
+			if(PINA == 0x04) {
 				state = pound;
 				hold = 0x01;
 			}
@@ -26,14 +26,14 @@ void tick() {
 			}
 			break;
 		case pound: 
-			if(PINA == 0x02 && hold == 0x01) {
+			if(PINA == 0x04 && hold == 0x01) {
 				state = pound;
 			}
 			else if (PINA == 0x00) {
 				state = pound;
 				hold = 0x00;
 			}
-			else if (PINA == 0x01 && hold == 0x00) {
+			else if (PINA == 0x02 && hold == 0x00) {
 				state = r_pound;
 			}
 			else {

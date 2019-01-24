@@ -12,7 +12,7 @@ enum States{start, input, unlock, lock}state;
 unsigned char count = 0x00;
 unsigned char code = 0x00;
 unsigned char sequence[4];
-unsigned char correctSequence[] = {2,0,1,0};
+unsigned char correctSequence[] = {4,1,2,1};
 void tick() {
 	switch(state) {
 		case start:
